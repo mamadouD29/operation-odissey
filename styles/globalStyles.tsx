@@ -1,8 +1,11 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
 	container: {
 		flex: 1,
+	},
+	pad: {
+		padding: 10,
 	},
 	hCtr: {
 		flexDirection: "row",
@@ -15,11 +18,14 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		gap: 5,
 	},
-    result: {
-        fontSize: 36,
-    },
-    inp: {
-        fontSize: 20,
-    }
-    
+	result: {
+		fontSize: 36,
+	},
+	inp: {
+		fontSize: 20,
+	},
+	menuTxt: {
+		fontSize: 24,
+		fontWeight: "bold",
+	},
 });
