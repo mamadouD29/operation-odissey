@@ -1,13 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { NavigationAndRouteProps } from "../../services/utils/navigations";
-import { menuOptions } from "../../services/utils/menuOptions";
-import { globalStyles } from "../../styles/globalStyles";
-import { EmIcons } from "../../components/shared";
+import { NavigationAndRouteProps } from "../../../services/utils/navigations";
+import { menuOptions } from "../../../services/utils/menuOptions";
+import { globalStyles } from "../../../styles/globalStyles";
+import { EmIcons } from "../../../components/shared";
 
 export function HomeScreen({ navigation }: NavigationAndRouteProps) {
-	const handlePress = (id: number, title: string) => {
-		navigation.navigate("GameScreen", { id, title });
+	const handlePress = (id: number, title: string, bg: string) => {
+		navigation.navigate("GameScreen", { id, title, bg });
 	};
 	return (
 		<View
@@ -20,8 +20,13 @@ export function HomeScreen({ navigation }: NavigationAndRouteProps) {
 						(option: { id: number; title: string; bg: string }) => {
 							return (
 								<Pressable
+									key={option.id}
 									onPress={() =>
-										handlePress(option.id, option.title)
+										handlePress(
+											option.id,
+											option.title,
+											option.bg,
+										)
 									}
 									style={({ pressed }) => [
 										globalStyles.vCtr,

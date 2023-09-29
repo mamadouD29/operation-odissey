@@ -28,4 +28,16 @@ export const globalStyles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: "bold",
 	},
+	addBg: {
+		backgroundColor: "#34d399",
+	},
+	subBg: {
+		backgroundColor: "#f43f5e",
+	},
+	mulBg: {
+		backgroundColor: "#0ea5e9",
+	},
+	divBg: {
+		backgroundColor: "#fafaf9",
+	},
 });
