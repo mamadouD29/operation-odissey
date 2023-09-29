@@ -5,14 +5,15 @@ import { globalStyles } from "../../../styles/globalStyles";
 const digs = [1, 9, 6, 3];
 interface ControlPadProps {
 	digitHandler: (digit: number) => void;
+	numPad: number[];
 	digits?: number;
 }
 
-export function ControlPad({ digits, digitHandler }: ControlPadProps) {
+export function ControlPad({ digits, digitHandler, numPad }: ControlPadProps) {
 	return (
 		<View style={[globalStyles.container, styles.container]}>
-			{digs &&
-				digs.map((digit: number, id: number) => {
+			{numPad &&
+				numPad.map((digit: number, id: number) => {
 					return (
 						<Pressable
 							onPress={() => digitHandler(digit)}
