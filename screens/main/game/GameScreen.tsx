@@ -72,7 +72,7 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 		}, 2000);
 	};
 	useEffect(() => {
-		if (inp === result) {
+		if (disableBtn.size === 3 && inp === result) {
 			rstHandler();
 			handleRestart();
 			setInp(() => initialValue(title));
