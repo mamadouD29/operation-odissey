@@ -12,6 +12,7 @@ import {
 	getResult,
 	initialValue,
 } from "../../../services/utils/index";
+import { CustomButton } from "../../../components/shared";
 
 export function GameScreen({ route }: NavigationAndRouteProps) {
 	const { id, title, bg } = route.params;
@@ -19,6 +20,7 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	const mySet1 = new Set();
 	const mySet2 = new Set();
 	let myStock: number[] = [];
+	const [restart, setRestart] = useState<boolean>(false);
 	const [reset, setReset] = useState<boolean>(false);
 	const [result, setResult] = useState<number | null>(null);
 	const [inp, setInp] = useState<number>(() => {
@@ -30,6 +32,10 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	const [numPad, setNumPad] = useState<number[]>([]);
 	const [msg, setMsg] = useState<string>("");
 
+	const handleRestart = () => {
+		setRestart(prev => !prev);
+		
+	};
 	const digitHandler = (digit: number) => {
 		// will modify the input
 		if (title === "Addition") {
@@ -48,21 +54,23 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 		setInp((prev) => prev / digit);
 	};
 
-	const rstHanler = () => {
-		setReset(true);
-		setTimeout(() => {
-			setReset(false);
-		}, 2000);
-	};
+	// const rstHanler = () => {
+	// 	setReset(true);
+	// 	setTimeout(() => {
+	// 		setReset(false);
+	// 	}, 2000);
+	// };
 	useEffect(() => {
 		if (inp === result) {
-			rstHanler();
+			// rstHanler();
+			handleRestart();
 			setInp(() => initialValue(title));
 			setMsg("🐱 You won");
 		}
 		// lets show u the idea
 		if (result && inp > result) {
-			rstHanler();
+			// rstHanler();
+			handleRestart();
 			const initial = initialValue(title);
 			setInp(initial);
 			setMsg("🥺 Sorry you lost");
@@ -104,13 +112,16 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	useEffect(() => {
 		generateRandomValues();
 		getResultValue();
-	}, [reset]);
+	}, [restart]);
 
 	return (
 		<View style={[globalStyles.container, globalStyles.pad]}>
-			<Text style={[globalStyles.menuTxt, { textAlign: "center" }]}>
-				{title}
-			</Text>
+			<View style={[globalStyles.vCtr]}>
+				<Text style={[globalStyles.menuTxt, { textAlign: "center" }]}>
+					{title}
+				</Text>
+				<CustomButton action="Restart" brd={0} onPress={handleRestart} />
+			</View>
 
 			<OutputDisplay result={result} inp={inp} resultBg={bg} />
 			<ControlPad digitHandler={digitHandler} numPad={numPad} />

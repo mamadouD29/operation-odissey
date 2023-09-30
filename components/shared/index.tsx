@@ -1,3 +1,3 @@
+import CustomButton from "./CustomButton";
 import { EmIcons } from "./EmIcons";
-
-export { EmIcons };
+export { CustomButton, EmIcons };
