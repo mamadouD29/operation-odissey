@@ -39,15 +39,9 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 		setRestart(prev => !prev);
 		
 	};
-	const digitHandler = (digit: number, id: number) => {
-		if (disableBtn.size > 2) {
-			rstHandler();
-			handleRestart();
-			return;
-		}
-		const disableBtnCopy = new Set([...disableBtn]);
-		disableBtnCopy.add(id);
-		setDisableBtn(disableBtnCopy);
+
+	const digitHandler = (digit: number) => {
+		// will modify the input
 		if (title === "Addition") {
 			setInp((prev) => prev + digit);
 			return;
@@ -64,22 +58,22 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 		setInp((prev) => prev / digit);
 	};
 
-	const rstHandler = () => {
-		setReset(true);
-		setTimeout(() => {
-			setReset(false);
-		}, 2000);
-	};
+	// const rstHanler = () => {
+	// 	setReset(true);
+	// 	setTimeout(() => {
+	// 		setReset(false);
+	// 	}, 2000);
+	// };
 	useEffect(() => {
-		if (disableBtn.size === 3 && inp === result) {
-			rstHandler();
+		if (inp === result) {
+			// rstHanler();
 			handleRestart();
 			setInp(() => initialValue(title));
 			setMsg("🐱 You won");
 		}
 
 		if (result && inp > result) {
-			rstHandler();
+			// rstHanler();
 			handleRestart();
 			const initial = initialValue(title);
 			setInp(initial);
