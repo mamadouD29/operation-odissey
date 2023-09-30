@@ -3,9 +3,9 @@ import React from "react";
 import { globalStyles } from "../../../styles/globalStyles";
 
 interface OutputDisplayProps {
-	result: number;
 	inp: number;
 	resultBg?: string;
+	result: number | null;
 }
 
 export function OutputDisplay({ result, inp, resultBg }: OutputDisplayProps) {

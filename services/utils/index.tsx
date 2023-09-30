@@ -1,4 +1,4 @@
-import { getRandomIntInclusive, getResult } from "./appfunctions";
+import { getRandomIntInclusive, getResult, initialValue } from "./appfunctions";
 import { menuOptions } from "./menuOptions";
 
-export { getRandomIntInclusive, menuOptions, getResult };
+export { initialValue, getRandomIntInclusive, menuOptions, getResult };

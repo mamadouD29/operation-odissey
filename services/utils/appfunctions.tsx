@@ -15,11 +15,18 @@ export function getResult(
 	}
 
 	if (title === "Multiplication") {
+		console.log("size: ", size);
 		return size === 0 ? newVal * 1 : (oldVal *= newVal);
 	}
 
 	if (title === "Subtraction") {
 		return (oldVal -= newVal);
 	}
-	return size === 0 ? newVal : oldVal / newVal;
+	return size === 0 ? newVal : oldVal * newVal;
+}
+export function initialValue(title: string) {
+	if (title === "Multiplication") {
+		return 1;
+	}
+	return 0;
 }

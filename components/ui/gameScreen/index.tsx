@@ -1,4 +1,5 @@
 import { ControlPad } from "./ControlPad";
+import {MsgModal} from "./MsgModal";
 import { OutputDisplay } from "./OutputDisplay";
 
-export { OutputDisplay, ControlPad };
+export { MsgModal, OutputDisplay, ControlPad };
