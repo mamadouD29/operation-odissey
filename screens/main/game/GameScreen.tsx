@@ -17,10 +17,11 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	const mySet1 = new Set();
 	const mySet2 = new Set();
 	let myStock: number[] = [];
-
+	const [reset, setReset] = useState<boolean>(false);
 	const [result, setResult] = useState<number>(1);
-	const [inp, setInp] = useState<number>(1);
+	const [inp, setInp] = useState<number>(0);
 	const [numPad, setNumPad] = useState<number[]>([]);
+
 	const digitHandler = (digit: number) => {
 		// will modify the input
 		if (title === "Addition") {
@@ -38,6 +39,20 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 		setInp((prev) => prev / digit);
 	};
 
+	const rstHanler = () => {
+		setReset(true);
+		setTimeout(() => {
+			setReset(false);
+		}, 2000);
+	};
+	useEffect(() => {
+		if (inp === result) {
+			rstHanler();
+			setInp(0);
+		}
+		
+	}, [inp]);
+
 	const generateRandomValues = () => {
 		while (myStock.length < 4) {
 			const randVal = getRandomIntInclusive(1, 10);
@@ -54,7 +69,7 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	};
 
 	function getResultValue() {
-		let rslt: number = 1;
+		let rslt: number = 0;
 		while (mySet1.size < 3) {
 			const randVal = getRandomIntInclusive(0, 3);
 			if (mySet1.has(randVal)) {
@@ -72,13 +87,14 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	useEffect(() => {
 		generateRandomValues();
 		getResultValue();
-	}, []);
+	}, [reset]);
 
 	return (
 		<View style={[globalStyles.container, globalStyles.pad]}>
 			<Text style={[globalStyles.menuTxt, { textAlign: "center" }]}>
 				{title}
 			</Text>
+			{reset && <Text>won</Text>}
 			<OutputDisplay result={result} inp={inp} resultBg={bg} />
 			<ControlPad digitHandler={digitHandler} numPad={numPad} />
 		</View>
