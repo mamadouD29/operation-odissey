@@ -14,6 +14,8 @@ import {
 } from "../../../services/utils/index";
 import { CustomButton } from "../../../components/shared";
 
+const initializedBtn = new Set<number>();
+
 export function GameScreen({ route }: NavigationAndRouteProps) {
 	const { id, title, bg } = route.params;
 	// let title = "Multiplication";
@@ -29,15 +31,24 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 		}
 		return 0;
 	});
+	const [disableBtn, setDisableBtn] = useState<Set<number>>(initializedBtn);
 	const [numPad, setNumPad] = useState<number[]>([]);
 	const [msg, setMsg] = useState<string>("");
 
 	const handleRestart = () => {
+		setDisableBtn(initializedBtn);
 		setRestart((prev) => !prev);
 		setInp(() => initialValue(title));
 	};
-	const digitHandler = (digit: number) => {
-		// will modify the input
+	const digitHandler = (digit: number, id: number) => {
+		if (disableBtn.size > 2) {
+			rstHandler();
+			handleRestart();
+			return;
+		}
+		const disableBtnCopy = new Set([...disableBtn]);
+		disableBtnCopy.add(id);
+		setDisableBtn(disableBtnCopy);
 		if (title === "Addition") {
 			setInp((prev) => prev + digit);
 			return;
@@ -54,22 +65,22 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 		setInp((prev) => prev / digit);
 	};
 
-	// const rstHanler = () => {
-	// 	setReset(true);
-	// 	setTimeout(() => {
-	// 		setReset(false);
-	// 	}, 2000);
-	// };
+	const rstHandler = () => {
+		setReset(true);
+		setTimeout(() => {
+			setReset(false);
+		}, 2000);
+	};
 	useEffect(() => {
 		if (inp === result) {
-			// rstHanler();
+			rstHandler();
 			handleRestart();
 			setInp(() => initialValue(title));
 			setMsg("🐱 You won");
 		}
-		// lets show u the idea
+
 		if (result && inp > result) {
-			// rstHanler();
+			rstHandler();
 			handleRestart();
 			const initial = initialValue(title);
 			setInp(initial);
@@ -128,7 +139,11 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 			</View>
 
 			<OutputDisplay result={result} inp={inp} resultBg={bg} />
-			<ControlPad digitHandler={digitHandler} numPad={numPad} />
+			<ControlPad
+				digitHandler={digitHandler}
+				numPad={numPad}
+				disableBtn={disableBtn}
+			/>
 			{reset && <MsgModal isVisible={reset} msg={msg} />}
 		</View>
 	);

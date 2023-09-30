@@ -4,25 +4,37 @@ import { globalStyles } from "../../../styles/globalStyles";
 
 const digs = [1, 9, 6, 3];
 interface ControlPadProps {
-	digitHandler: (digit: number) => void;
+	digitHandler: (digit: number, id: number) => void;
+	disableBtn: Set<number>;
 	numPad: number[];
 	digits?: number;
 }
 
-export function ControlPad({ digits, digitHandler, numPad }: ControlPadProps) {
+export function ControlPad({
+	digits,
+	digitHandler,
+	numPad,
+	disableBtn,
+}: ControlPadProps) {
 	return (
 		<View style={[globalStyles.container, styles.container]}>
 			{numPad &&
 				numPad.map((digit: number, id: number) => {
 					return (
 						<Pressable
-							onPress={() => digitHandler(digit)}
+							onPress={() => digitHandler(digit, id)}
 							key={id}
 							style={({ pressed }) => [
 								globalStyles.vCtr,
 								styles.btn,
-								{ opacity: pressed ? 0.3 : 1 },
+								{
+									opacity: pressed ? 0.3 : 1,
+									backgroundColor: disableBtn.has(id)
+										? "#a3a3a3"
+										: "#fafaf9",
+								},
 							]}
+							disabled={disableBtn.has(id)}
 						>
 							<Text style={[styles.digitTxt]}>{digit}</Text>
 						</Pressable>
