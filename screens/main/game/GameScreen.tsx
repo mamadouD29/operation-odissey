@@ -33,8 +33,8 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	const [msg, setMsg] = useState<string>("");
 
 	const handleRestart = () => {
-		setRestart(prev => !prev);
-		
+		setRestart((prev) => !prev);
+		setInp(() => initialValue(title));
 	};
 	const digitHandler = (digit: number) => {
 		// will modify the input
@@ -120,7 +120,11 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 				<Text style={[globalStyles.menuTxt, { textAlign: "center" }]}>
 					{title}
 				</Text>
-				<CustomButton action="Restart" brd={0} onPress={handleRestart} />
+				<CustomButton
+					action="Restart"
+					brd={0}
+					onPress={handleRestart}
+				/>
 			</View>
 
 			<OutputDisplay result={result} inp={inp} resultBg={bg} />
