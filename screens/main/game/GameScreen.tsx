@@ -36,9 +36,8 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 	const [msg, setMsg] = useState<string>("");
 
 	const handleRestart = () => {
-		setDisableBtn(initializedBtn);
-		setRestart((prev) => !prev);
-		setInp(() => initialValue(title));
+		setRestart(prev => !prev);
+		
 	};
 	const digitHandler = (digit: number, id: number) => {
 		if (disableBtn.size > 2) {
@@ -131,11 +130,7 @@ export function GameScreen({ route }: NavigationAndRouteProps) {
 				<Text style={[globalStyles.menuTxt, { textAlign: "center" }]}>
 					{title}
 				</Text>
-				<CustomButton
-					action="Restart"
-					brd={0}
-					onPress={handleRestart}
-				/>
+				<CustomButton action="Restart" brd={0} onPress={handleRestart} />
 			</View>
 
 			<OutputDisplay result={result} inp={inp} resultBg={bg} />
