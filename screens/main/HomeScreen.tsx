@@ -20,6 +20,7 @@ export function HomeScreen({ navigation }: NavigationAndRouteProps) {
 						(option: { id: number; title: string; bg: string }) => {
 							return (
 								<Pressable
+									key={option.id}
 									onPress={() =>
 										handlePress(option.id, option.title)
 									}
